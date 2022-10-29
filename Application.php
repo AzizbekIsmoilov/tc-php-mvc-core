@@ -3,21 +3,32 @@ namespace AzizbekIsmoilov\phpmvc;
 
 use AzizbekIsmoilov\phpmvc\db\Database;
 
+/**
+ *
+ */
 class Application
 {
-    public string $layout = 'main';
+    const EVENT_BEFORE_REQUEST = 'beforeRequest';
+    const EVENT_AFTER_REQUEST = 'afterRequest';
+    protected array $eventListeners = [];
+    public static Application $app;
     public static string $ROOT_DIR;
+    public string $layout = 'main';
     public string $userClass;
-    public Router $router;
-    public Request $request;
     public Response $response;
     public Session $session;
-    public ?Database $db = null;
+    public Request $request;
     public ?UserModel $user;
-    public View $view;
+    public Router $router;
+    public ?Database $db = null;
 
-    public static Application $app;
+    public View $view;
     public Controller $controller;
+
+    /**
+     * @param $rootPath
+     * @param array $config
+     */
     public function __construct($rootPath, array $config)
     {
         $this->userClass = $config['userClass'];
@@ -40,13 +51,20 @@ class Application
         }
     }
 
+    /**
+     * @return bool
+     */
     public static function isGuest()
     {
         return !self::$app->user;
     }
 
+    /**
+     * @return void
+     */
     public function run()
     {
+        $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
             echo  $this->router->resolve();
         } catch (\Exception $e){
@@ -54,6 +72,28 @@ class Application
             echo $this->view->renderView('_error', [
                'exception' => $e
             ]);
+        }
+    }
+
+    /**
+     * @param $eventName
+     * @param $callback
+     * @return void
+     */
+    public function on($eventName, $callback)
+    {
+        $this->eventListeners[$eventName][] = $callback;
+    }
+
+    /**
+     * @param $eventName
+     * @return void
+     */
+    public function triggerEvent($eventName)
+    {
+        $callbacks = $this->eventListeners[$eventName] ?? [];
+        foreach ($callbacks as $callback) {
+            call_user_func($callback);
         }
     }
 
@@ -73,6 +113,10 @@ class Application
         $this->controller = $controller;
     }
 
+    /**
+     * @param UserModel $user
+     * @return void
+     */
     public function login(UserModel $user)
     {
         $this->user=$user;
@@ -80,7 +124,10 @@ class Application
         $primaryValue = $user->{$primaryKey};
         $this->session->set('user', $primaryValue);
     }
-    
+
+    /**
+     * @return void
+     */
     public function logout()
     {
         $this->user = null;
