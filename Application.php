@@ -1,8 +1,7 @@
 <?php
-namespace app\core;
+namespace AzizbekIsmoilov\phpmvc;
 
-use app\core\db\Database;
-use app\core\db\DBModel;
+use AzizbekIsmoilov\phpmvc\db\Database;
 
 class Application
 {

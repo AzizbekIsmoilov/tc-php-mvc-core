@@ -1,7 +1,7 @@
 <?php
-namespace app\core\db;
+namespace AzizbekIsmoilov\phpmvc\db;
 
-use app\core\Application;
+use AzizbekIsmoilov\phpmvc\Application;
 
 class Database
 {

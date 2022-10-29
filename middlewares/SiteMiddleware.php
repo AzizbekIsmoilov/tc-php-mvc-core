@@ -1,9 +1,9 @@
 <?php
 
-namespace app\core\middlewares;
+namespace AzizbekIsmoilov\phpmvc\middlewares;
 
-use app\core\Application;
-use app\core\exception\ForbiddenException;
+use AzizbekIsmoilov\phpmvc\Application;
+use AzizbekIsmoilov\phpmvc\exception\ForbiddenException;
 
 class SiteMiddleware extends BaseMiddleware
 {

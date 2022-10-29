@@ -1,5 +1,5 @@
 <?php
-namespace app\core\Helpers;
+namespace AzizbekIsmoilov\phpmvc\Helpers;
 class StringHelper
 {
 

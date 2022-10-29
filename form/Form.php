@@ -1,6 +1,6 @@
 <?php
-namespace app\core\form;
-use app\core\Model;
+namespace AzizbekIsmoilov\phpmvc\form;
+use AzizbekIsmoilov\phpmvc\Model;
 
 class Form
 {

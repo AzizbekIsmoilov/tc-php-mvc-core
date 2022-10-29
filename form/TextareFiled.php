@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\form;
+namespace AzizbekIsmoilov\phpmvc\form;
 
 class TextareFiled extends BaseField
 {

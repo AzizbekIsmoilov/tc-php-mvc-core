@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
+namespace AzizbekIsmoilov\phpmvc;
 
-use app\core\Helpers\StringHelper;
+use AzizbekIsmoilov\phpmvc\Helpers\StringHelper;
 
 abstract class Model
 {
